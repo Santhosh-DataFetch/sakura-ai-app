@@ -4,7 +4,7 @@ import { MainLayout } from '@/components/MainLayout'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useState, useRef, useEffect } from 'react'
-import { useChat } from 'ai/react'
+import { useChat } from '@ai-sdk/react'
 
 export default function AITutor() {
   const [difficulty, setDifficulty] = useState<'beginner' | 'intermediate' | 'advanced'>('beginner')
