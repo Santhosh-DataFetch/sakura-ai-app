@@ -6,6 +6,8 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
+    console.log("Incoming body:", body);
+
     const { messages, topic, difficulty } = body;
 
     const supabase = await createClient();
@@ -18,37 +20,23 @@ export async function POST(req: Request) {
       return new Response("Unauthorized", { status: 401 });
     }
 
-    const system = `
-You are Sakura, an enthusiastic Japanese language tutor.
-
-User Level: ${difficulty ?? "beginner"}
-Topic: ${topic ?? "General Conversation"}
-
-Rules:
-- Teach Japanese naturally.
-- Explain vocabulary.
-- Include romaji when appropriate.
-- Include English translations.
-- Encourage the learner.
-- Keep replies concise.
-`;
-
     const result = streamText({
       model: google("gemini-2.0-flash"),
-      system,
+      system: `You are Sakura, a Japanese tutor.
+User Level: ${difficulty ?? "beginner"}
+Topic: ${topic ?? "General"}`,
       messages,
-      temperature: 0.7,
-      maxOutputTokens: 500,
     });
 
     return result.toDataStreamResponse();
   } catch (err) {
-    console.error(err);
+    console.error("AI Tutor Error:", err);
 
-    return new Response(
-      JSON.stringify({
+    return Response.json(
+      {
+        success: false,
         error: String(err),
-      }),
+      },
       {
         status: 500,
       }
