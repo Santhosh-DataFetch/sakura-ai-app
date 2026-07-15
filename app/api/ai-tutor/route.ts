@@ -1,12 +1,10 @@
-import { streamText } from "ai";
+import { generateText } from "ai";
 import { google } from "@ai-sdk/google";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-
-    console.log("Incoming body:", body);
 
     const { messages, topic, difficulty } = body;
 
@@ -20,21 +18,21 @@ export async function POST(req: Request) {
       return new Response("Unauthorized", { status: 401 });
     }
 
-    const result = streamText({
-  model: google("gemini-2.0-flash"),
-  system: `You are Sakura...`,
-  messages,
-});
+    const result = await generateText({
+      model: google("gemini-2.0-flash"),
+      system: `You are Sakura, a Japanese tutor.
 
-console.log("RESULT METHODS:", Object.keys(result));
+User Level: ${difficulty ?? "beginner"}
+Topic: ${topic ?? "General"}
+`,
+      messages,
+    });
 
-return Response.json({
-  methods: Object.keys(result),
-});
-
-    return result.toDataStreamResponse();
+    return Response.json({
+      text: result.text,
+    });
   } catch (err) {
-    console.error("AI Tutor Error:", err);
+    console.error(err);
 
     return Response.json(
       {
