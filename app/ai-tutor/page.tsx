@@ -94,13 +94,7 @@ export default function AITutor() {
          <form
   onSubmit={(e) => {
     e.preventDefault();
-
-    handleSubmit(e, {
-      body: {
-        topic,
-        difficultyLevel: difficulty,
-      },
-    });
+    console.log(messages);
   }}
   className="flex gap-2"
 >
