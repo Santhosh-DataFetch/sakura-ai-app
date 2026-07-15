@@ -103,9 +103,6 @@ export default function AITutor() {
   });
 }}
 
-    console.log("STATUS:", res.status);
-    console.log("RESPONSE:", await res.text());
-  }}
   className="flex gap-2"
 >
             <input
