@@ -30,8 +30,8 @@ export default function AITutor() {
     <MainLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-foreground mb-2">AI Tutor - Sakura</h1>
-          <p className="text-foreground/70">Chat with your AI Japanese tutor</p>
+          <h1 className="text-3xl font-bold text-red-500 mb-2"> TEST 123</h1>     
+           <p className="text-foreground/70">Chat with your AI Japanese tutor</p>
         </div>
 
         {/* Settings */}
@@ -91,7 +91,13 @@ export default function AITutor() {
           </div>
 
           {/* Input */}
-          <form onSubmit={handleSubmit} className="flex gap-2">
+          <form
+  onSubmit={(e) => {
+    console.log("FORM SUBMITTED");
+    handleSubmit(e);
+  }}
+  className="flex gap-2"
+>
             <input
               value={input}
               onChange={handleInputChange}
