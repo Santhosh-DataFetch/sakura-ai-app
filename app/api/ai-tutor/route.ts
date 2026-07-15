@@ -21,12 +21,16 @@ export async function POST(req: Request) {
     }
 
     const result = streamText({
-      model: google("gemini-2.0-flash"),
-      system: `You are Sakura, a Japanese tutor.
-User Level: ${difficulty ?? "beginner"}
-Topic: ${topic ?? "General"}`,
-      messages,
-    });
+  model: google("gemini-2.0-flash"),
+  system: `You are Sakura...`,
+  messages,
+});
+
+console.log("RESULT METHODS:", Object.keys(result));
+
+return Response.json({
+  methods: Object.keys(result),
+});
 
     return result.toDataStreamResponse();
   } catch (err) {
