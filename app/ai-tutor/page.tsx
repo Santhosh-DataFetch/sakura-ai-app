@@ -105,7 +105,13 @@ export default function AITutor() {
               className="flex-1 px-3 py-2 bg-background border border-border rounded text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary"
               disabled={isLoading}
             />
-            <Button type="submit" disabled={isLoading} className="bg-primary text-primary-foreground">
+          <button
+  type="submit"
+  disabled={isLoading}
+  className="bg-primary text-primary-foreground px-4 py-2 rounded"
+>
+  Send
+</button>
               Send
             </Button>
           </form>
