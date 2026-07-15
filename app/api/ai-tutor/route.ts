@@ -4,7 +4,9 @@ import { createClient } from "@/lib/supabase/server";
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const body = await req.json();\
+    
+    console.log("BODY:", JSON.stringify(body, null, 2));
 
     const { messages, topic, difficulty } = body;
 
