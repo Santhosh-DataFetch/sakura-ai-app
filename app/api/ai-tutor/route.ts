@@ -1,9 +1,18 @@
-import { NextResponse } from "next/server";
+import { streamText } from "ai";
+import { google } from "@ai-sdk/google";
 
 export async function POST(req: Request) {
-  const body = await req.json();
+  const { messages, topic, difficultyLevel } = await req.json();
 
-  console.log("BODY:", body);
+  const result = streamText({
+    model: google("gemini-2.0-flash"),
+    system: `
+You are Sakura, a Japanese tutor.
+Level: ${difficultyLevel}
+Topic: ${topic}
+`,
+    messages,
+  });
 
-  return NextResponse.json(body);
+  return result.toDataStreamResponse();
 }

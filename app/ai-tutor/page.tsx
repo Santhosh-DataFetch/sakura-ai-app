@@ -92,23 +92,16 @@ export default function AITutor() {
 
           {/* Input */}
           <form
-  onSubmit={async (e) => {
-    e.preventDefault();
+  onSubmit={(e) => {
+  e.preventDefault();
 
-    console.log("FORM SUBMITTED");
-    console.log("INPUT:", input);
-
-    const res = await fetch("/api/ai-tutor", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        message: input,
-        topic,
-        difficultyLevel: difficulty,
-      }),
-    });
+  handleSubmit(e, {
+    body: {
+      topic,
+      difficultyLevel: difficulty,
+    },
+  });
+}}
 
     console.log("STATUS:", res.status);
     console.log("RESPONSE:", await res.text());
